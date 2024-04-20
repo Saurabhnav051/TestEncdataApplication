@@ -314,33 +314,4 @@
 		</plugins>
      <finalName>${project.artifactId}</finalName>
 	</build>
-	
-	
-	  <profiles>
-        <profile>
-            <id>dev</id>
-            <properties>
-                <activatedProperties>dev</activatedProperties>
-            </properties>
-            <activation>
-                <activeByDefault>true</activeByDefault>
-            </activation>
-            <!-- log config enable -->
-              <!-- <configuration>
-	           <suiteXmlFiles>
-	               <suiteXmlFile>src/main/resources/logback-test.xml</suiteXmlFile>
-	          </suiteXmlFiles>
-           </configuration>  --> 
-        </profile>
-        <profile>
-            <id>prod</id>
-            <properties>
-                <activatedProperties>prod</activatedProperties>
-            </properties>
-              <activation>
-                <activeByDefault>true</activeByDefault>
-            </activation>
-           
-        </profile>
-    </profiles>
 </project>
