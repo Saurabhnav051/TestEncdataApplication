@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Simple POST API Call</title>
+</head>
+
+<body>
+	
+	
+	
+	
+	<form id="apiForm" action="http://localhost:1090/encdata/callredirect" method="POST">
+    
+            
+        <label>Order Number:</label>
+        <input id="hiddenMerchantOrderNo" name="hiddenMerchantOrderNo" type="text" />
+        
+        
+            <label>Amount:</label>
+        <input id="orderAmount" name="orderAmount" type="text" />
+        
+      
+        
+        
+        
+        
+            <label>encryptTrans:</label>
+        <input id="encryptTrans" name="encryptTrans" type="text" />        
+
+       <label>encryptbillingDetails:</label>
+        <input id="encryptbillingDetails" name="encryptbillingDetails"  type="text" />
+        
+        <label>encryptshippingDetais:</label>
+        <input id="encryptshippingDetais"  name="encryptshippingDetais" type="text" />
+        
+        <label>encryptpaymentDetails:</label>
+        <input id="encryptpaymentDetails" name="encryptpaymentDetails" type="text" />
+        
+        <label>merchIdVal:</label>
+        <input id="merchIdVal" name="merchIdVal" type="text" />
+        
+         <label>mk:</label>
+        <input id="mk" name="mk" type="text" />
+         <label>kk:</label>
+        <input id="kk" name="kk" type="text" />
+        
+        <input type="submit" value="Submit"/>
+        </td>
+      </form>
+	<div id="response"></div>
+</body>
+
+</html>

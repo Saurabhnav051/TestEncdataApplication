@@ -1,0 +1,69 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+
+<head>
+
+<meta http-equiv="Content-Type" charset=ISO-8859-1" content="default-src 'self'; font-src 'self' data: fonts.gstatic.com;">
+
+
+<title>Merchant Check Out Page</title>
+
+</head>
+
+<body>
+
+<form name="transaction1" id="transaction2" action="https://uat.sbiepay.sbi/secure/AggregatorHostedListener?action=AggregatorHostedListener" method="post" style="display:none;">
+	<table border="0">
+	<tr>
+			<td></td>
+			</tr>
+	<tr>
+	<td>Transaction Data :</td>
+	<td><p id="trans"></p></td>
+	</tr>
+	<tr>
+	<td>Encrypted Transaction Data : </td>
+	<td><textarea name="EncryptTrans" id="EncryptTrans" cols="50" rows="5"></textarea></td>
+	</tr>
+	<tr>
+	<td>Billing Data :</td>
+	<td><p id="billingDetails"></p></td>
+	</tr>
+	<tr>
+	<td>Encrypted Billing Data : </td>
+	<td><textarea name="EncryptbillingDetails" id="EncryptbillingDetails" cols="50" rows="5"></textarea></td>
+	</tr>
+	<tr>
+	<td>Shipping Data :</td>
+	<td><p id="shippingDetais"></p></td>
+	</tr>
+	<tr>
+	<td>Encrypted Shipping Data :</td>
+	<td><textarea name="EncryptshippingDetais" id="EncryptshippingDetais" cols="50" rows="5"></textarea></td>
+	</tr>
+	<tr>
+	<td>Payment Data :</td>
+	<td><p id="paymentDetails"></p></td>
+	</tr>
+	<tr>
+	<td>Encrypted Payment Data :</td>
+	<td><textarea name="EncryptpaymentDetails" id="EncryptpaymentDetails" cols="50" rows="5"></textarea></td>
+	<tr>
+	<tr>
+	<td colspan="2" align="center">
+	<input type="hidden" id="merchIdVal" name="merchIdVal" 	value="<%=merchantId %>">
+	<%-- <input type="hidden" id="hiddenMerchantOrderNo" name="hiddenMerchantOrderNo" 	value="<%=stringBuilder %>"> --%>
+	<input type="hidden" id="neftRtgsMobileNumber" name="neftRtgsMobileNumber" 	>
+	<input type="hidden" id="neftRtgsEmailId" name="neftRtgsEmailId" 	>
+	<input type="hidden" id="neftChallanExpDt" name="neftChallanExpDt" 	>  <!-- Added By Pooja. -->
+	<input type="hidden" id="cashCustomerName" name="cashCustomerName" 	>
+	<input type="submit" name="Submit" value="Process Transaction"  onclick="location.href='/secure/ResponseEnc.jsp'"/></td>
+
+	</tr>
+	</table>
+	</form>
+</body>
+
+</html>
+

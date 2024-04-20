@@ -1,0 +1,29 @@
+server:
+  port: 1090
+  servlet:
+    session:
+      cookie:
+        name: JSESSIONID
+        path: /
+        http-only: false
+    context-path: /encdata
+  error:
+    path: /error
+    whitelabel:
+      enabled: false
+ 
+  
+spring:
+  application:
+    name: encdata    
+  messages:
+    basename: errors,messages 
+  jpa:
+    generate-ddl: true
+    show-sql: true 
+  main:
+        allow-circular-references: true 
+ 
+      
+      
+     
