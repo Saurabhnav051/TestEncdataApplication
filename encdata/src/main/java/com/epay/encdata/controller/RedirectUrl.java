@@ -228,7 +228,7 @@ AggregatorHosted aggregatorHosted=new AggregatorHosted();
 	
 	}
 	
-	public String redirectCall1(String hiddenMerchantOrderNo,String orderAmount1,String mk,String kk ) {
+	public RedirectView redirectCall(String hiddenMerchantOrderNo,String orderAmount1,String mk,String kk ) {
 	
 		
 		
@@ -282,7 +282,7 @@ AggregatorHosted aggregatorHosted=new AggregatorHosted();
 	
 	}
 
-	public RedirectView redirectCall(String hiddenMerchantOrderNo,String orderAmount1,String mk,String kk ) {
+	public String redirectCall2(String hiddenMerchantOrderNo,String orderAmount1,String mk,String kk ) {
 	
 		
 		
