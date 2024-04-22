@@ -169,11 +169,8 @@
 		
 		
 		
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-thymeleaf</artifactId>
-		</dependency>
-		 <dependency>
+		
+	<!--	 <dependency>
 			<groupId>nz.net.ultraq.thymeleaf</groupId>
 			<artifactId>thymeleaf-layout-dialect</artifactId>
 		</dependency> 
@@ -185,7 +182,7 @@
 			<groupId>org.thymeleaf.extras</groupId>
 			<artifactId>thymeleaf-extras-java8time</artifactId>
 			<version>3.0.4.RELEASE</version>
-		</dependency> 
+		</dependency> -->
 
   <!-- https://mvnrepository.com/artifact/commons-codec/commons-codec -->	
 <dependency>
