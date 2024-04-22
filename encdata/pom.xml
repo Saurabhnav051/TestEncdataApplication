@@ -13,6 +13,7 @@
 	<artifactId>encdata</artifactId>
 	<version>0.0.1</version>
 	<packaging>jar</packaging>
+	
 	<name>encdata</name>
 	<description>Demo project for Spring Boot</description>
 	<properties>
@@ -20,6 +21,14 @@
 		<!-- <hibernate-validator.version>6.0.0.Final</hibernate-validator.version> -->
 		<validation-api.version>2.0.1.Final</validation-api.version>
 	</properties>
+	
+	<distributionManagement>
+   <repository>
+     <id>github</id>
+     <name>GitHub OWNER Apache Maven Packages</name>
+     <url>https://maven.pkg.github.com/Saurabhnav051/DemoEncDataApplication</url>
+   </repository>
+</distributionManagement>
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -271,6 +280,12 @@
     <groupId>org.springframework.boot</groupId>
     <artifactId>spring-boot-starter-webflux</artifactId>
   </dependency> -->
+  
+  <dependency>
+    <groupId>org.sonatype.central</groupId>
+    <artifactId>central-publishing-maven-plugin</artifactId>
+    <version>0.4.0</version>
+</dependency>
 </dependencies> 
 	
 
@@ -303,7 +318,19 @@
 					<artifactId>maven-clean-plugin</artifactId>
 					<version>3.1.0</version>
 				</plugin>
+			<!--	<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-javadoc-plugin</artifactId>
+        <version>3.6.3</version>
+				</plugin>
 				
+				<plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-source-plugin</artifactId>
+        <version>3.3.1</version>
+        </plugin>-->
+        
+        
 				 <!--<plugin>
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-surefire-plugin</artifactId>

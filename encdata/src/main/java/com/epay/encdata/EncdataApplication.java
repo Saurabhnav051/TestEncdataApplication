@@ -32,7 +32,8 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 //import com.sbi.epay.util.ContextListener;
 
-
+//https://jenkov.com/tutorials/maven/publish-to-central-maven-repository.html  //maven publish step by step 
+//https://pgpkeygen.com/   //pgp key generate
 @SpringBootApplication(exclude = {DataSourceAutoConfiguration.class }) 
 public class EncdataApplication extends SpringBootServletInitializer implements WebMvcConfigurer {
 
