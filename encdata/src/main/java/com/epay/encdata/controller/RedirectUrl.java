@@ -282,7 +282,7 @@ AggregatorHosted aggregatorHosted=new AggregatorHosted();
 	
 	}
 
-	public String redirectCall2(String hiddenMerchantOrderNo,String orderAmount1,String mk,String kk ) {
+	public String redirectCall2(String hiddenMerchantOrderNo,String orderAmount1,String mk,String kk) {
 	
 		
 		
@@ -321,6 +321,61 @@ AggregatorHosted aggregatorHosted=new AggregatorHosted();
 		aggregatorHosted.setEncryptTrans(encryptedInputValue);
 		aggregatorHosted.setEncryptpaymentDetails("WkWBvgYaMjvLzvyZsnzIzA==");
 		aggregatorHosted.setMerchIdVal("1000003");
+		aggregatorHosted.setEncryptbillingDetails("");
+		aggregatorHosted.setEncryptshippingDetais("");
+		aggregatorHosted.setHiddenMerchantOrderNo(ordernumber);
+		
+	 
+		  try {
+				return "https://uat.sbiepay.sbi/secure/AggregatorHostedListener?EncryptTrans="+URLEncoder.encode(aggregatorHosted.getEncryptTrans(),"UTF-8")+"&EncryptbillingDetails="+URLEncoder.encode(aggregatorHosted.getEncryptbillingDetails(),"UTF-8")+"&EncryptshippingDetais="+URLEncoder.encode(aggregatorHosted.getEncryptshippingDetais(),"UTF-8")+"&EncryptpaymentDetails="+aggregatorHosted.getEncryptpaymentDetails()+"&merchIdVal="+aggregatorHosted.getMerchIdVal()+"&hiddenMerchantOrderNo="+aggregatorHosted.getHiddenMerchantOrderNo()+"&neftRtgsMobileNumber="+aggregatorHosted.getNeftRtgsMobileNumber()+"&neftRtgsEmailId="+aggregatorHosted.getNeftRtgsEmailId()+"&neftChallanExpDt="+aggregatorHosted.getNeftChallanExpDt()+"&cashCustomerName="+aggregatorHosted.getCashCustomerName()+"&Submit=Proceed Transaction";
+			} catch (UnsupportedEncodingException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			return null;
+	
+	}
+	
+	
+public String redirectCall2(String hiddenMerchantOrderNo,String orderAmount1,String mk,String kk,String merchentid,String sucessurl,String failurl) {
+	
+		
+		
+		GetMekKey mekKey = new GetMekKey();
+		
+		String meKey="";
+		String encryptedInputValue ="";
+		String decryptedInputValue ="";
+		String ordernumber=hiddenMerchantOrderNo;
+		String orderAmount=orderAmount1;
+		String mk1=mk;
+		String kk1=kk;
+		
+		try {
+		// meKey = mekKey.getMeK();      //========================================= 1 ============================//
+			 meKey= mekKey.getMeK(merchentid,kk1,mk1);
+		System.out.println("meKey >> " + meKey);
+		
+		
+	String value1 = "ARNAV";
+	String value=""+merchentid+"|DOM|IN|INR|"+orderAmount+"|Other|"+sucessurl+"|"+failurl+"|SBIEPAY|"+ordernumber+"|"+ordernumber+"|NB|ONLINE|ONLINE";
+	
+		
+	 encryptedInputValue = AESEncryptDecrypt.encrypt(value, meKey);
+	System.out.println("ARNAV Encrypted Value >> " + encryptedInputValue);
+		
+}catch(Exception e ) {
+			
+			e.printStackTrace();
+		}
+		
+		
+		
+AggregatorHosted aggregatorHosted=new AggregatorHosted();
+		
+		aggregatorHosted.setEncryptTrans(encryptedInputValue);
+		aggregatorHosted.setEncryptpaymentDetails("");
+		aggregatorHosted.setMerchIdVal(merchentid);
 		aggregatorHosted.setEncryptbillingDetails("");
 		aggregatorHosted.setEncryptshippingDetais("");
 		aggregatorHosted.setHiddenMerchantOrderNo(ordernumber);
