@@ -337,7 +337,7 @@ AggregatorHosted aggregatorHosted=new AggregatorHosted();
 	}
 	
 	
-public String redirectCall2(String hiddenMerchantOrderNo,String orderAmount1,String mk,String kk,String merchentid,String sucessurl,String failurl) {
+public String redirectCall3(String hiddenMerchantOrderNo,String orderAmount1,String mk,String kk,String merchentid,String sucessurl,String failurl) {
 	
 		
 		
