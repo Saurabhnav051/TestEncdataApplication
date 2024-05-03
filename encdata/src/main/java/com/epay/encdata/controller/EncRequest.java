@@ -17,11 +17,16 @@ import javax.validation.Valid;
 
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.client.HttpServerErrorException;
+import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
 
@@ -31,7 +36,7 @@ import com.epay.encdata.entity.AggregatorHosted;
 import com.epay.encdata.entity.MerchantDetailEntity;
 import com.epay.encdata.entity.Order;
 import com.epay.encdata.entity.OrderDetails;
-
+import com.epay.encdata.entity.QueryApiEntity;
 import com.epay.encdata.util.AESEncryptDecrypt;
 import com.epay.encdata.util.GenericExceptionLog;
 import com.epay.encdata.util.GetMekKey;
@@ -269,6 +274,50 @@ public class EncRequest {
 		 */
 	//return null;
 
+	}
+	
+	
+	/*
+	 * @PostMapping("/queryAPI") public ResponseEntity<String>
+	 * getQuery2(@RequestBody QueryApiEntity req) {
+	 * 
+	 * 
+	 * return getQueryAPI(req.getEncData(),req.getCs(),req.getMerchantCode()); }
+	 */
+	
+	
+	//added by Saurabh 
+	
+	//@PostMapping("/queryAPI")
+	//public ResponseEntity<String> getQueryAPI(@RequestBody QueryApiEntity req) {
+	
+	public ResponseEntity<String> getQueryAPI(String encdata,String cs,String merchantCode) {
+		//return new RedirectView("https://uat.sbiepay.sbi/queryAPI/getQueryAPI");
+		
+        String apiUrl = "https://uat.sbiepay.sbi/queryAPI/getQueryAPI";
+        
+        QueryApiEntity req=new QueryApiEntity();
+        req.setEncData(encdata);
+        req.setCs(cs);
+        req.setMerchantCode(merchantCode);
+        
+        RestTemplate restTemplate = new RestTemplate();
+        
+        try {
+           
+        	ResponseEntity<String> response = restTemplate.postForEntity(apiUrl, req, String.class);
+            return ResponseEntity.ok().body(response.getBody());
+            
+        } catch (HttpServerErrorException e) {
+            // server errors
+            String errorMessage = "Server error occurred: " + e.getMessage();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(errorMessage);
+        } catch (Exception e) {
+            // other exceptions
+            String errorMessage = "An error occurred: " + e.getMessage();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(errorMessage);
+        }
+		
 	}
 	
 	
