@@ -277,13 +277,12 @@ public class EncRequest {
 	}
 	
 	
-	/*
-	 * @PostMapping("/queryAPI") public ResponseEntity<String>
-	 * getQuery2(@RequestBody QueryApiEntity req) {
-	 * 
-	 * 
-	 * return getQueryAPI(req.getEncData(),req.getCs(),req.getMerchantCode()); }
-	 */
+	
+//	  @PostMapping("/queryAPI") 
+//	  public ResponseEntity<String> getQuery2(@RequestBody QueryApiEntity req) {
+//	  
+//	  return getQueryAPI(req.getEncData(),req.getCs(),req.getMerchantCode()); }
+	 
 	
 	
 	//added by Saurabh 
