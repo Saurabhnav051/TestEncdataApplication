@@ -26,7 +26,7 @@
    <repository>
      <id>github</id>
      <name>TestEncdataApplication</name>
-     <url>https://maven.pkg.github.com/Saurabhnav051/TestEncdataApplication</url>
+     <url>https://maven.pkg.github.com/Saurabhnav051/TestEncdataApplication/encdata</url>
    </repository>
 </distributionManagement>
 	<dependencies>
