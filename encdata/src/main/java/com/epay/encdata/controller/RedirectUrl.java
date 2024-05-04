@@ -5,22 +5,33 @@ package com.epay.encdata.controller;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
+
+import javax.crypto.spec.SecretKeySpec;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.codec.digest.DigestUtils;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.client.HttpServerErrorException;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
 
+import com.epay.encdata.config.AES256Bit;
 import com.epay.encdata.entity.AggregatorHosted;
+import com.epay.encdata.entity.QueryApiEntity;
 import com.epay.encdata.util.AESEncryptDecrypt;
+import com.epay.encdata.util.GenericExceptionLog;
 import com.epay.encdata.util.GetMekKey;
 
 //import com.epay.encdata.entity.Adddata;
@@ -29,7 +40,8 @@ import com.epay.encdata.util.GetMekKey;
 
 
 
-@Controller
+//@Controller
+@RestController
 public class RedirectUrl {
 
 	@GetMapping("/redirect")
@@ -391,4 +403,114 @@ AggregatorHosted aggregatorHosted=new AggregatorHosted();
 	
 	}
 	
+
+	@PostMapping("/queryAPI")
+	public ResponseEntity<String> getQuery2(@RequestBody QueryApiEntity req) {
+
+		return getQueryAPI(req.getEncData(), req.getCs(), req.getMerchantCode());
+	}
+
+//added by Saurabh 
+
+//@PostMapping("/queryAPI")
+//public ResponseEntity<String> getQueryAPI(@RequestBody QueryApiEntity req) {
+
+	public ResponseEntity<String> getQueryAPI(String encdata, String cs, String merchantCode) {
+		// return new RedirectView("https://uat.sbiepay.sbi/queryAPI/getQueryAPI");
+
+		String apiUrl = "https://uat.sbiepay.sbi/queryAPI/getQueryAPI";
+
+		QueryApiEntity req = new QueryApiEntity();
+		req.setEncData(encdata);
+		req.setCs(cs);
+		req.setMerchantCode(merchantCode);
+
+		RestTemplate restTemplate = new RestTemplate();
+
+		try {
+
+			ResponseEntity<String> response = restTemplate.postForEntity(apiUrl, req, String.class);
+			return ResponseEntity.ok().body(response.getBody());
+
+		} catch (HttpServerErrorException e) {
+			// server errors
+			String errorMessage = "Server error occurred: " + e.getMessage();
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(errorMessage);
+		} catch (Exception e) {
+			// other exceptions
+			String errorMessage = "An error occurred: " + e.getMessage();
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(errorMessage);
+		}
+
+	}
+public static String checksum(String checksumValue, String ChecksumFlag) {
+		
+		if (ChecksumFlag.equals("SHA256")) {
+			return DigestUtils.sha256Hex(checksumValue);
+		} else if (ChecksumFlag.equals("SHA512")) {
+			return DigestUtils.sha512Hex(checksumValue);
+		} else {
+			return null;
+		}
+	}
+	
+	
+
+	@GetMapping("/getCheckSum/{data}/{flag}")
+	public String getCheckSum(@PathVariable(name = "data") String data,@PathVariable(name = "flag") String flag) {
+	System.out.println("CheckSum Value :: " +data +" CheckSum Flag :: "+ flag);
+	String checkSumValue="";
+	checkSumValue=checksum(data, flag);
+	System.out.println("CheckSum Value :: " +data +" CheckSum Flag :: "+ flag + " Result :: "+ checkSumValue);
+	return checkSumValue;
+	}
+	
+	
+	
+	public static String decrypt(String encryptedValue, String key) throws NullPointerException, Exception {
+		String decryptedValue = "";
+		try {
+			System.out.println("encryptedValue >> " + encryptedValue);
+			System.out.println("key >> " + key);
+			 
+			
+
+			/*
+			 * decryptedValue = AES128Bit.decrypt(encryptedValue, key); // ------------ pass
+			 * encrypted value from database for decryption
+			 * System.out.println("decryptedValue >> " + decryptedValue);
+			 */
+			  
+			  
+				SecretKeySpec secretkeyspec=null;
+				secretkeyspec = AES256Bit.readKeyBytes(key);
+				decryptedValue = AES256Bit.decrypt(encryptedValue, secretkeyspec);
+			  
+			  
+			  
+
+		}  catch (Exception ex) {
+			GenericExceptionLog.exceptionJava(ex,
+					"AESEncryptDecrypt.java :: An error occurred while decryption .",
+					"AESEncryptDecrypt");
+			
+		}
+		return decryptedValue;
+	}
+	
+	
+	public static String encrypt(String decryptedValue,String key)
+			throws NullPointerException, Exception {
+		String encryptValue = "";
+		
+		
+		SecretKeySpec secretkeyspec=null;
+		secretkeyspec = AES256Bit.readKeyBytes(key);
+		encryptValue = AES256Bit.encrypt(decryptedValue, secretkeyspec);
+		
+		
+		return encryptValue;
+		
+	}
+
 }

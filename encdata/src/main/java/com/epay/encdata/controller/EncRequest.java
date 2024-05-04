@@ -278,46 +278,7 @@ public class EncRequest {
 	
 	
 	
-//	  @PostMapping("/queryAPI") 
-//	  public ResponseEntity<String> getQuery2(@RequestBody QueryApiEntity req) {
-//	  
-//	  return getQueryAPI(req.getEncData(),req.getCs(),req.getMerchantCode()); }
-	 
-	
-	
-	//added by Saurabh 
-	
-	//@PostMapping("/queryAPI")
-	//public ResponseEntity<String> getQueryAPI(@RequestBody QueryApiEntity req) {
-	
-	public ResponseEntity<String> getQueryAPI(String encdata,String cs,String merchantCode) {
-		//return new RedirectView("https://uat.sbiepay.sbi/queryAPI/getQueryAPI");
-		
-        String apiUrl = "https://uat.sbiepay.sbi/queryAPI/getQueryAPI";
-        
-        QueryApiEntity req=new QueryApiEntity();
-        req.setEncData(encdata);
-        req.setCs(cs);
-        req.setMerchantCode(merchantCode);
-        
-        RestTemplate restTemplate = new RestTemplate();
-        
-        try {
-           
-        	ResponseEntity<String> response = restTemplate.postForEntity(apiUrl, req, String.class);
-            return ResponseEntity.ok().body(response.getBody());
-            
-        } catch (HttpServerErrorException e) {
-            // server errors
-            String errorMessage = "Server error occurred: " + e.getMessage();
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(errorMessage);
-        } catch (Exception e) {
-            // other exceptions
-            String errorMessage = "An error occurred: " + e.getMessage();
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(errorMessage);
-        }
-		
-	}
+
 	
 	
 
